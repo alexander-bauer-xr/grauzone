@@ -1,41 +1,41 @@
-# Grauzone Pott – Doku-Podcast Webseite
+# Grauzone Pott – Documentary Podcast Website
 
-**Grauzone Pott** ist ein dokumentarischer Podcast über migrantischen Widerstand und neonazistische Gewalt im Ruhrgebiet der 1980er und 1990er Jahre. Die Webseite dient als zentrale Anlaufstelle für alle Episoden, Shownotes, Transkripte und Metadaten – gestützt durch eine Headless-CMS-API und ein objektorientiertes PHP-Setup.
+**Grauzone Pott** is a documentary podcast about migrant resistance and neo-Nazi violence in Germany's Ruhr region during the 1980s and 1990s. The website serves as a central hub for all episodes, show notes, transcripts, and metadata – supported by a headless CMS API and an object-oriented PHP setup.
 
-## 🔧 Projektstruktur
+## 🔧 Project Structure
 
 ```
 grauzone-pott.de/
 │
 ├── classes/
-│   ├── Controllers/         # Alle Controller zur Seitensteuerung
-│   ├── Models/              # Datenmodelle (z. B. Episode)
-│   ├── View.php             # Rendering-Logik
-│   ├── Router.php           # Einfache Routing-Lösung
+│   ├── Controllers/         # All controllers for page management
+│   ├── Models/              # Data models (e.g., Episode)
+│   ├── View.php             # Rendering logic
+│   ├── Router.php           # Simple routing solution
 │
-├── config/meta.php          # Meta-Daten pro Seite
-├── views/                   # Seiten (HTML/PHP-Templates)
-├── partials/                # Gemeinsame Teile wie Header, Footer, Assets
-├── css/, js/, font/, img/   # Statische Assets
+├── config/meta.php          # Metadata for each page
+├── views/                   # Pages (HTML/PHP templates)
+├── partials/                # Common parts like header, footer, assets
+├── css/, js/, font/, img/   # Static assets
 ```
 
-## Funktionsweise
+## Functionality
 
-- Die Seite nutzt ein minimalistisches MVC-System in PHP.
-- Daten (Episoden etc.) werden via cURL aus einer API geladen (`Models/Episode.php`).
-- `Router.php` matched die URL auf eine definierte Route und ruft den entsprechenden Controller/Action auf.
-- Metadaten werden dynamisch aus `meta.php` geladen und von `BaseController.php` bereitgestellt.
+- The site uses a minimalist MVC system in PHP.
+- Data (episodes etc.) is fetched via cURL from an API (`Models/Episode.php`).
+- `Router.php` matches the URL to a defined route and calls the corresponding controller/action.
+- Metadata is dynamically loaded from `meta.php` and provided by `BaseController.php`.
 
-## Beispiel: Eine Episode anzeigen
+## Example: Displaying an Episode
 
 ```php
-// Route: /episode/1/zum-beispiel
+// Route: /episode/1/for-example
 $router->add('/episode/(\d+)/([\w-]+)', 'EpisodeController', 'show');
 ```
 
-Der `EpisodeController` lädt die Episode über ihre ID, prüft den Slug (für SEO), setzt die Meta-Tags und rendert die `episode`-View mit dem Episodendatensatz.
+The `EpisodeController` loads the episode by its ID, checks the slug (for SEO), sets the meta tags, and renders the `episode` view with the episode data.
 
-## Beispiel: Datenmodell `Episode`
+## Example Data Model: `Episode`
 
 ```php
 public static function getById($id)
@@ -47,18 +47,18 @@ public static function getById($id)
 }
 ```
 
-## Beispiel-View: `views/episode.php`
+## Example View: `views/episode.php`
 
-Die View-Datei rendert:
-- Titel & Untertitel
-- Audio-Player
-- Beschreibung, Shownotes, Transkript-Link
-- Mitwirkende
-- Links zu allen Streamingplattformen
+The view file renders:
+- Title & Subtitle
+- Audio player
+- Description, show notes, transcript link
+- Contributors
+- Links to all streaming platforms
 
-## Meta-Daten-Handling
+## Metadata Handling
 
-Die Meta-Daten befinden sich in `config/meta.php`. Sie werden automatisch gesetzt (bspw. bei der Startseite) oder dynamisch überschrieben, wie bei einzelnen Episoden:
+The metadata is located in `config/meta.php`. It is automatically set (e.g., for the homepage) or dynamically overridden, such as for individual episodes:
 
 ```php
 $this->setMeta('title', $episode['title'] . ' | Grauzone Pott');
