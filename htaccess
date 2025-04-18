@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect non-www and HTTP to HTTPS and www
+RewriteCond %{HTTP_HOST} ^grauzone-pott\.de [NC]
+RewriteRule ^(.*)$ https://www.grauzone-pott.de/$1 [L,R=301]
+
+# Redirect all HTTP requests to HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Ensure file requests go to index.php if file doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

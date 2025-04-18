@@ -1,0 +1,35 @@
+# === SYSTEM / OS FILES ===
+.DS_Store
+Thumbs.db
+
+# === VSCODE SETTINGS ===
+.vscode/
+
+# === PHP ===
+*.log
+*.cache
+
+# === COMPOSE ===
+vendor/
+composer.lock
+
+# === ENVIRONMENT / SECRETS ===
+.env
+.env.*
+
+# === CACHED FILES ===
+*.bak
+*.tmp
+*.swp
+
+# === ASSETS TO EXCLUDE (copyright-sensitive) ===
+/font/
+
+# === IMAGES (if you want to exclude them too) ===
+/img/
+
+# === BACKUP FILES ===
+*.sql
+*.sqlite
+*.zip
+*.tar.gz

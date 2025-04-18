@@ -1,0 +1,15 @@
+# robots.txt for grauzone-pott.de
+
+# Allow all user agents full access
+User-agent: *
+Allow: /
+
+# Disallow crawling of specific directories
+Disallow: /cms/
+
+# Block access to specific file types
+Disallow: /*.bak$
+Disallow: /*.log$
+
+# Specify the location of the sitemap
+Sitemap: https://www.grauzone-pott.de/sitemap.xml
